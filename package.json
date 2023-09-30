@@ -1,0 +1,43 @@
+{
+  "name": "sequelize_orm",
+  "version": "1.0.0",
+  "description": "In this project, we are going to practice workinkg with Sequelize ORM",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ambaqinejad/sequelize_orm.git"
+  },
+  "keywords": [
+    "sequelize",
+    "sql",
+    "mysql",
+    "database",
+    "orm",
+    "nodejs",
+    "node",
+    "express",
+    "express",
+    "js",
+    "expressjs"
+  ],
+  "author": "ambaqinejad",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ambaqinejad/sequelize_orm/issues"
+  },
+  "homepage": "https://github.com/ambaqinejad/sequelize_orm#readme",
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "mysql2": "^3.6.1",
+    "sequelize": "^6.33.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}
