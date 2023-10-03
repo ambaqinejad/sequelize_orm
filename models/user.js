@@ -29,10 +29,19 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4
     },
-    firstName: {...conditions},
-    lastName: {...conditions},
-    email: {...conditions, unique: true},
-    role: {...conditions}
+    firstName: {...conditions, validate: {
+      notNull: { msg: "User must have a first name"},
+      notEmpty: { msg: "User first name must not be empty."}
+    }},
+    lastName: {...conditions, validate: {
+      notNull: { msg: "User must have a last name"},
+      notEmpty: { msg: "User last name must not be empty."}}},
+    email: {...conditions, unique: true, validate: {
+      notNull: { msg: "User must have an email"},
+      notEmpty: { msg: "User email must not be empty."}}},
+    role: {...conditions, validate: {
+      notNull: { msg: "User must have a role"},
+      notEmpty: { msg: "User role must not be empty."}}}
   }, {
     sequelize,
     tableName: "users",

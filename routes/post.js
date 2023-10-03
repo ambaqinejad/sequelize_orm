@@ -62,4 +62,46 @@ router.get("/getAll", async (req, res) => {
     }
 })
 
+router.get("/getOne/:uuid", async (req, res) => {
+    try {
+        const uuid = req.params.uuid;
+        const post = await PostModel.findOne({ where: {uuid}, include: "user" })
+        res.status(200).json(post)
+    } catch (error) {
+        console.log(error);
+        res.status(500).json(error)
+    }
+})
+
+router.delete("/delete/:uuid", async(req, res) => {
+    try {
+        const uuid = req.params.uuid;
+        await PostModel.destroy({ where: {uuid} })
+        res.status(204).json({
+            message: "Post deleted successfully."
+        })
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            message: error.message
+        })
+    }    
+})
+
+router.put("/update/:uuid", async(req, res) => {
+    try {
+        const uuid = req.params.uuid;
+        const {body} = req.body;
+        const post = await PostModel.findOne({where: {uuid}});
+        post.body = body || post.body;
+        await post.save();
+        res.status(200).json(post)
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            message: error.message
+        })
+    }
+})
+
 module.exports = router

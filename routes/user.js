@@ -1,7 +1,7 @@
 const express = require("express");
 const path = require("path");
 
-const { User: UserModel } = require(path.join(__dirname, "..", "models"));
+const { User: UserModel, Post: PostModel } = require(path.join(__dirname, "..", "models"));
 
 const router = express.Router();
 
@@ -66,6 +66,43 @@ router.get("/getOne/:uuid", async (req, res) => {
     } catch (error) {
         console.log(error);
         res.status(500).json(error)
+    }
+})
+
+router.delete("/delete/:uuid", async (req, res) => {
+    try {
+        const uuid = req.params.uuid;
+        // const user = await UserModel.findOne({uuid});
+        const user = await UserModel.findOne({where: {uuid}});
+        await PostModel.destroy({where: {userId: user.id}})
+        await user.destroy()
+        res.status(200).json({
+            message: "User and all of his/her posts"
+        })
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            message: error.message
+        })
+    }
+})
+
+router.put("/update/:uuid", async(req, res) => {
+    try {
+        const uuid = req.params.uuid;
+        const {firstName, lastName, email, role} = req.body;
+        const user = await UserModel.findOne({where: {uuid}});
+        user.firstName = firstName || user.firstName;
+        user.lastName = lastName || user.lastName;
+        user.email = email || user.email;
+        user.role = role || user.role;
+        await user.save();
+        res.status(200).json(user)
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            message: error.message
+        })
     }
 })
 
